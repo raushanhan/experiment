@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.kpfu.itis.springpractice.experiment.BuildConfig.ADVENTURER_APP_BASE_URL
 import ru.kpfu.itis.springpractice.experiment.data.remote.api.AdventurerAppApi
-import ru.kpfu.itis.springpractice.experiment.util.ITokenManager
+import ru.kpfu.itis.springpractice.experiment.domain.tokenmanager.ITokenManager
 
 object RetrofitInstanceProvider {
     private lateinit var instance: Retrofit
