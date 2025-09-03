@@ -6,9 +6,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.kpfu.itis.springpractice.experiment.data.remote.api.AdventurerAppApi
 import ru.kpfu.itis.springpractice.experiment.data.remote.network.AuthInterceptor
-import ru.kpfu.itis.springpractice.experiment.data.repositoryinterface.AuthRepository
+import ru.kpfu.itis.springpractice.experiment.data.repositoryImpl.AuthRepository
 import ru.kpfu.itis.springpractice.experiment.domain.tokenmanager.SpecialTM
-import ru.kpfu.itis.springpractice.experiment.data.repositoryinterface.NotesRepository
+import ru.kpfu.itis.springpractice.experiment.data.repositoryImpl.NotesRepository
 
 fun main() = runBlocking {
 
@@ -38,12 +38,12 @@ fun main() = runBlocking {
 
     println("before notes fetch")
     try {
-        val notes = api.getAuthorizedUserNotesList()
+        val notes = api.getNotesList()
         println(notes)
     } catch (e: Exception) {
         println("Error during notes fetch: $e")
     }
-    val notes = api.getAuthorizedUserNotesList()
+    val notes = api.getNotesList()
     println(notes)
     println("after notes fetch")
 

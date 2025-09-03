@@ -1,6 +1,7 @@
 package ru.kpfu.itis.springpractice.experiment.presentation.ui.recyclerview.notesrv
 
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
@@ -9,7 +10,9 @@ import kotlin.collections.mutableListOf
 
 class NoteRvAdapter(
     items: List<Note>,
-    val onClickAction: () -> Unit
+    val onClickAction: (note: Note) -> Unit,
+    val onMenuItemClick: (note: Note, menuItemId: Int) -> Unit,
+    val menuInflater: MenuInflater
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var dataList = mutableListOf<Note>()
@@ -24,12 +27,14 @@ class NoteRvAdapter(
         viewType: Int
     ): RecyclerView.ViewHolder {
         return NoteRvViewHolder(
-            onClickAction,
+            onClickAction = onClickAction,
             viewBinding = RvNoteItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            menuInflater = menuInflater,
+            onMenuItemClick = onMenuItemClick
         )
     }
 

@@ -7,4 +7,15 @@
     <string name="note_picture_iv_cd">Note picture</string>
     <string name="notes_list_loading_error_text">Error</string>
     <string name="note_more_iv_cd">Note more</string>
+    <string name="delete_title">Delete</string>
+    <string name="deleting_error_text">Deleting error</string>
+    <string name="deleting">Deleting</string>
+    <string name="deleting_success">Deletion complited</string>
+    <string name="plus">+</string>
+    <string name="add_a_note_button_cd">Add a note button</string>
+    <string name="add_a_photo_btn_text">Add a photo</string>
+    <string name="note_title_et_hint">Enter the note title…</string>
+    <string name="note_title_input_layout_hint">Title</string>
+    <string name="note_description_input_layout_hint">Description</string>
+    <string name="proceed_adding_a_note_button_cd">Proceed adding a note button</string>
 </resources>

@@ -1,4 +1,4 @@
-package ru.kpfu.itis.springpractice.experiment.domain.repository
+package ru.kpfu.itis.springpractice.experiment.domain.repositoryInterface
 
 interface AuthRepositoryInterface {
 

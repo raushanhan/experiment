@@ -3,20 +3,17 @@ package ru.kpfu.itis.springpractice.experiment.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.AuthorizeUseCase
+import ru.kpfu.itis.springpractice.experiment.domain.usecase.DeleteNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.LoadAuthorizedUserNotesUseCase
-import ru.kpfu.itis.springpractice.experiment.presentation.ui.recyclerview.notesrv.NoteRvAdapter
 
 class ExperimentViewModel(
     private val authorizeUseCase: AuthorizeUseCase,
-    private val loadAuthorizedUserNotesUseCase: LoadAuthorizedUserNotesUseCase
+    private val loadAuthorizedUserNotesUseCase: LoadAuthorizedUserNotesUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
 ) : ViewModel() {
 
     private val _notes = MutableLiveData<List<Note>>()
@@ -28,20 +25,53 @@ class ExperimentViewModel(
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
+    private val _isDeleting = MutableLiveData<Boolean>()
+    val isDeleting: LiveData<Boolean> = _isDeleting
+
+    private val _deletingError = MutableLiveData<String?>()
+    val deletingError: LiveData<String?> = _deletingError
+
+    private val _isDeletedSuccessfully = MutableLiveData<Boolean>()
+    val isDeletedSuccessfully: LiveData<Boolean> = _isDeletedSuccessfully
+
     fun loadData() {
         viewModelScope.launch {
             try {
                 _isLoading.value = true
                 authorizeUseCase.authorize("email@email.com", "rrr")
-                println("VIEW MODEL TEST TAG - logged in")
+                println("NOTES VIEW MODEL TEST TAG - logged in")
                 val items = loadAuthorizedUserNotesUseCase.loadNotes()
-                println("VIEW MODEL TEST TAG - $items")
+                println("NOTES VIEW MODEL TEST TAG - $items")
                 _notes.value = items
             } catch (e: Exception) {
+                println("NOTES VIEW MODEL TEST TAG - error: ${e.message}")
                 _error.value = e.message
             } finally {
                 _isLoading.value = false
             }
+        }
+    }
+
+    fun deleteNote(id: Long) {
+        viewModelScope.launch {
+            try {
+                _isDeleting.value = true
+                val result = deleteNoteUseCase.delete(id)
+                if (result) {
+                    println("NOTES VIEW MODEL TEST TAG - successfully deleted note(id=$id)")
+                    val items = loadAuthorizedUserNotesUseCase.loadNotes()
+                    _notes.value = items
+                    _isDeletedSuccessfully.value = true
+                } else {
+                    println("NOTES VIEW MODEL TEST TAG - did not delete note(id=$id)")
+                }
+            } catch (e: Exception) {
+                println("NOTES VIEW MODEL TEST TAG - deleting error: ${e.message}")
+                _deletingError.value = e.message
+            } finally {
+                _isDeleting.value = false
+            }
+            deleteNoteUseCase.delete(id)
         }
     }
 }

@@ -10,6 +10,9 @@
         android:name="ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment.ExperimentFragment"
         android:label="fragment_experiment"
         tools:layout="@layout/fragment_experiment" >
+        <action
+            android:id="@+id/action_notes_fragment_to_note_adding_fragment"
+            app:destination="@id/note_adding_fragment" />
     </fragment>
     <fragment
         android:id="@+id/map_fragment"
@@ -22,5 +25,11 @@
         android:name="ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
+    </fragment>
+    <fragment
+        android:id="@+id/note_adding_fragment"
+        android:name="ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment.NoteAddingFragment"
+        android:label="fragment_note_adding"
+        tools:layout="@layout/fragment_note_adding" >
     </fragment>
 </navigation>

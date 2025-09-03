@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="plus_btn_size_dimen">80dp</dimen>
+</resources>
