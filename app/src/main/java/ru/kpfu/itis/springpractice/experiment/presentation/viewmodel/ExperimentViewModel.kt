@@ -71,7 +71,6 @@ class ExperimentViewModel(
             } finally {
                 _isDeleting.value = false
             }
-            deleteNoteUseCase.delete(id)
         }
     }
 }

@@ -52,6 +52,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.play.services.location)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -68,7 +69,7 @@ dependencies {
     implementation(libs.viewbindingpropertydelegate.noreflection)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-//    implementation(libs.retrofit.converters)
+    implementation(libs.logging.interceptor.v4120)
+    implementation(libs.okhttp)
     implementation(libs.kotlinx.coroutines.android)
-//    implementation(libs.logging.interceptor)
 }

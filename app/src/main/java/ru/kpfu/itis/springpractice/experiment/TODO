@@ -2,11 +2,11 @@ TOMORROW
 
 - adding a note fragment
 
-- adding a note use case
-
 - adding a note view model
 
 OTHER
+
+- check if network is on on the device
 
 - cashing
 
@@ -21,6 +21,8 @@ OTHER
 - opening note detailed screen
 
 DONE
+
+- adding a note use case
 
 - adding a note layout
 

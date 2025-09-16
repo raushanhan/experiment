@@ -1,11 +1,10 @@
 package ru.kpfu.itis.springpractice.experiment.data.remote.network
 
-import android.content.SharedPreferences
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.kpfu.itis.springpractice.experiment.BuildConfig.ADVENTURER_APP_BASE_URL
-import ru.kpfu.itis.springpractice.experiment.data.remote.api.AdventurerAppApi
+import okhttp3.logging.HttpLoggingInterceptor
 import ru.kpfu.itis.springpractice.experiment.domain.tokenmanager.ITokenManager
 
 object RetrofitInstanceProvider {
@@ -16,8 +15,14 @@ object RetrofitInstanceProvider {
             return instance
         }
 
+        val logging = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+
         val client = OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(tokenManager))
+            .addInterceptor(logging)
             .build()
 
         val retrofit = Retrofit.Builder()

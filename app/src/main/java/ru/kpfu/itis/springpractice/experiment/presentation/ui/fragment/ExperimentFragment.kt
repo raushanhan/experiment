@@ -2,16 +2,11 @@ package ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.view.ContextMenu
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,7 +16,6 @@ import ru.kpfu.itis.springpractice.experiment.R
 import ru.kpfu.itis.springpractice.experiment.databinding.FragmentExperimentBinding
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
 import ru.kpfu.itis.springpractice.experiment.extention.*
-import ru.kpfu.itis.springpractice.experiment.presentation.ui.MainActivity
 import ru.kpfu.itis.springpractice.experiment.presentation.ui.recyclerview.notesrv.NoteRvAdapter
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.ExperimentViewModel
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.ExperimentViewModelFactory
