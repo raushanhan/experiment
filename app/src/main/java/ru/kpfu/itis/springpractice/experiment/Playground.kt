@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.kpfu.itis.springpractice.experiment.data.remote.api.AdventurerAppApi
 import ru.kpfu.itis.springpractice.experiment.data.remote.network.AuthInterceptor
 import ru.kpfu.itis.springpractice.experiment.data.repositoryImpl.AuthRepository
-import ru.kpfu.itis.springpractice.experiment.domain.tokenmanager.SpecialTM
+import ru.kpfu.itis.springpractice.experiment.data.tokenmanager.SpecialTM
 import ru.kpfu.itis.springpractice.experiment.data.repositoryImpl.NotesRepository
 
 fun main() = runBlocking {

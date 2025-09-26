@@ -18,4 +18,13 @@
     <string name="note_title_input_layout_hint">Title</string>
     <string name="note_description_input_layout_hint">Description</string>
     <string name="proceed_adding_a_note_button_cd">Proceed adding a note button</string>
+    <string name="note_image_iv_content_desc">Note image Image view</string>
+    <string name="edit_button_cd">Edit note button</string>
+    <string name="added_note_picture_iv_cd">Added note picture image view</string>
+    <string name="remove_photo_button_text">Remove the photo</string>
+    <string name="note_title_et_error_text">Enter the title</string>
+    <string name="note_description_et_error_text">Enter the content</string>
+    <string name="ru_date_time_format">dd MMMM yyyy, HH:mm</string>
+    <string name="update_date_tv_text">Lastly updated at: %1$s</string>
+    <string name="creation_date_tv_text">Created at: %1$s</string>
 </resources>

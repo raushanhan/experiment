@@ -2,10 +2,13 @@ package ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +18,12 @@ import ru.kpfu.itis.springpractice.experiment.AdventurerApp
 import ru.kpfu.itis.springpractice.experiment.R
 import ru.kpfu.itis.springpractice.experiment.databinding.FragmentExperimentBinding
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
-import ru.kpfu.itis.springpractice.experiment.extention.*
+import ru.kpfu.itis.springpractice.experiment.presentation.extention.hide
+import ru.kpfu.itis.springpractice.experiment.presentation.extention.show
 import ru.kpfu.itis.springpractice.experiment.presentation.ui.recyclerview.notesrv.NoteRvAdapter
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.ExperimentViewModel
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.ExperimentViewModelFactory
+import androidx.navigation.fragment.findNavController
 
 class ExperimentFragment : Fragment() {
 
@@ -27,9 +32,10 @@ class ExperimentFragment : Fragment() {
         // временно!!!!!!
         val app = requireActivity().application as AdventurerApp
         ExperimentViewModelFactory(
-            app.authorizeUseCase,
-            app.loadAuthorizedUserNotesUseCase,
-            app.deleteNoteUseCase,
+            authorizeUseCase = app.authorizeUseCase,
+            loadAuthorizedUserNotesUseCase = app.loadAuthorizedUserNotesUseCase,
+            deleteNoteUseCase = app.deleteNoteUseCase,
+            imageLoader = app.imageLoader
         )
     }
     private lateinit var rvAdapter: NoteRvAdapter
@@ -43,15 +49,25 @@ class ExperimentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.loadData()
         rvAdapter = NoteRvAdapter(
             items = emptyList(),
-            onClickAction = {
-                // действие при клике
+            onClickAction = { noteId ->
+                println("NOTE RV ADAPTER TEST TAG - started executing click action for note(id=$noteId)")
+                val bundle = bundleOf("noteId" to noteId)
+                val navController = requireActivity().findNavController(R.id.fragment_container)
+                navController.navigate(
+                    R.id.action_notes_fragment_to_note_details_fragment,
+                    bundle
+                )
             },
             menuInflater = requireActivity().menuInflater,
             onMenuItemClick = { note, id ->
                 onMenuItemClick(note, id)
+            },
+            imageLoadingFun = { path, imageView ->
+                viewModel.loadImages(path, imageView)
             }
         )
         viewBinding.notesRv.apply {
@@ -91,12 +107,13 @@ class ExperimentFragment : Fragment() {
                 .show()
         }
         viewModel.isDeleting.observe(viewLifecycleOwner) { isDeleting ->
-            if(isDeleting) {
+            if (isDeleting) {
                 Snackbar.make(view, R.string.deleting, Snackbar.LENGTH_SHORT).show()
             }
         }
-        viewModel.isDeletedSuccessfully.observe(viewLifecycleOwner) {
-            Snackbar.make(view, R.string.deleting_success, Snackbar.LENGTH_SHORT).show()
+        viewModel.isDeletedSuccessfully.observe(viewLifecycleOwner) { isDeletedSuccessfully ->
+            if (isDeletedSuccessfully)
+                Snackbar.make(view, R.string.deleting_success, Snackbar.LENGTH_SHORT).show()
         }
     }
 

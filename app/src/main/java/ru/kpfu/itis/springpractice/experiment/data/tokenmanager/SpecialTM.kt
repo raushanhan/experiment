@@ -1,4 +1,4 @@
-package ru.kpfu.itis.springpractice.experiment.domain.tokenmanager
+package ru.kpfu.itis.springpractice.experiment.data.tokenmanager
 
 class SpecialTM : ITokenManager {
     private var token: String? = null

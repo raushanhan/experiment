@@ -1,4 +1,4 @@
-package ru.kpfu.itis.springpractice.experiment.domain.tokenmanager
+package ru.kpfu.itis.springpractice.experiment.data.tokenmanager
 
 interface ITokenManager {
 

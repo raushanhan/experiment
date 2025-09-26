@@ -1,4 +1,4 @@
-package ru.kpfu.itis.springpractice.experiment.presentation.ui.locationManager;
+package ru.kpfu.itis.springpractice.experiment.presentation.locationManager
 
 import android.Manifest
 import android.app.Activity

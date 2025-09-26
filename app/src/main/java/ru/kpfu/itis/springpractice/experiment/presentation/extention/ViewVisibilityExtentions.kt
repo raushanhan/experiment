@@ -1,4 +1,4 @@
-package ru.kpfu.itis.springpractice.experiment.extention
+package ru.kpfu.itis.springpractice.experiment.presentation.extention
 
 import android.view.View
 

@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "ru.kpfu.itis.springpractice.experiment"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -51,6 +51,8 @@ android {
 
 dependencies {
 
+
+
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.play.services.location)
     implementation(libs.androidx.navigation.ui)
@@ -72,4 +74,10 @@ dependencies {
     implementation(libs.logging.interceptor.v4120)
     implementation(libs.okhttp)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.navigation.safeargs.ktx)
+    implementation(libs.glide)
+
+    configurations.all {
+        exclude(group = "xpp3", module = "xpp3")
+    }
 }

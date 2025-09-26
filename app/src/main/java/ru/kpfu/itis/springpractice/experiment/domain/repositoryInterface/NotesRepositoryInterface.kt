@@ -10,4 +10,6 @@ interface NotesRepositoryInterface {
     suspend fun deleteNote(id: Long): Boolean
 
     suspend fun addNote(note: NoteAddRequest): Note
+
+    suspend fun getNote(id: Long): Note
 }

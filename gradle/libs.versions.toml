@@ -20,6 +20,8 @@ retrofit = "3.0.0"
 retrofitConverters = "2.9.0"
 vbDelegateVersion = "1.5.9"
 googleServicesLocation = "21.3.0"
+safeArgsVersion = "2.9.4"
+glideVersion = "5.0.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +45,8 @@ okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "loggingInterce
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 viewbindingpropertydelegate-noreflection = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version.ref = "vbDelegateVersion" }
 play-services-location = {module = "com.google.android.gms:play-services-location", version.ref = "googleServicesLocation"}
+androidx-navigation-safeargs-ktx = {module="androidx.navigation:navigation-safe-args-gradle-plugin", version.ref="safeArgsVersion"}
+glide = {module="com.github.bumptech.glide:glide", version.ref="glideVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

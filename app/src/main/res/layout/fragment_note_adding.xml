@@ -16,13 +16,35 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/remove_photo_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="@string/remove_photo_button_text"
+        android:visibility="gone"
+        app:icon="@drawable/icon_baseline_delete_basket_red_outline_24"
+        app:layout_constraintStart_toEndOf="@id/add_a_photo_btn"
+        app:layout_constraintTop_toTopOf="@id/add_a_photo_btn"
+        />
+
+    <ImageView
+        android:id="@+id/added_note_picture_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/added_note_picture_iv_cd"
+        app:layout_constraintTop_toBottomOf="@id/add_a_photo_btn"
+        tools:src="@drawable/icon_notes_fragment"
+        />
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/note_title_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/note_title_input_layout_hint"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@id/add_a_photo_btn"
+        app:layout_constraintTop_toBottomOf="@id/added_note_picture_iv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <com.google.android.material.textfield.TextInputEditText

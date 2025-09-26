@@ -4,12 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.kpfu.itis.springpractice.experiment.data.exception.UnsuccessfulNoteAdding
+import ru.kpfu.itis.springpractice.experiment.domain.exception.UnsuccessfulNoteAdding
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
 import ru.kpfu.itis.springpractice.experiment.domain.model.NoteAddRequest
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.AddNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.UploadImageUseCase
-import ru.kpfu.itis.springpractice.experiment.presentation.ui.locationManager.LocationManager
+import ru.kpfu.itis.springpractice.experiment.presentation.locationManager.LocationManager
 import java.io.File
 
 class NoteAddingViewModel(
@@ -26,7 +26,7 @@ class NoteAddingViewModel(
     private val _addingError = MutableLiveData<String?>()
     val addingError = _addingError
 
-    fun addNote(note: Note, locationManager: LocationManager) {
+    fun addNote(note: Note, locationManager: LocationManager, file: File?) {
         println("NOTE ADDING VIEW MODEL TEST TAG - received note(${note})")
         viewModelScope.launch {
             val location = locationManager.getLocation()
@@ -34,15 +34,17 @@ class NoteAddingViewModel(
             _isLoading.value = true
             try {
                 if (location != null) {
-                    if (note.imageUrl.isNotEmpty()) {
-                        uploadImageUseCase.uploadImage(File(note.imageUrl))
+                    file?.let {
+                        println("NOTE ADDING VIEW MODEL TEST TAG - uploading file ${it.name}")
+                        uploadImageUseCase.uploadImage(it)
                     }
                     val noteRequest = NoteAddRequest(
                         title = note.title,
                         content = note.content,
                         latitude = location.latitude,
                         longitude = location.longitude,
-                        imageUrl = note.imageUrl
+                        imageUrl = note.imageUrl,
+                        createdAt = note.createdAt
                     )
                     println("NOTE ADDING VIEW MODEL TEST TAG - create note request (${noteRequest})")
                     val result = useCase.addNote(noteRequest)
@@ -55,4 +57,6 @@ class NoteAddingViewModel(
             }
         }
     }
+
+
 }

@@ -3,7 +3,7 @@ package ru.kpfu.itis.springpractice.experiment.data.repositoryImpl
 import ru.kpfu.itis.springpractice.experiment.data.remote.api.AdventurerAppApi
 import ru.kpfu.itis.springpractice.experiment.domain.model.LoginRequest
 import ru.kpfu.itis.springpractice.experiment.domain.repositoryInterface.AuthRepositoryInterface
-import ru.kpfu.itis.springpractice.experiment.domain.tokenmanager.ITokenManager
+import ru.kpfu.itis.springpractice.experiment.data.tokenmanager.ITokenManager
 
 class AuthRepository(
     private val api: AdventurerAppApi,

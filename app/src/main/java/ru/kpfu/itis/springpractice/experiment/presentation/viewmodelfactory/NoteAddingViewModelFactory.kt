@@ -2,7 +2,6 @@ package ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.kpfu.itis.springpractice.experiment.data.repositoryImpl.ImagesRepository
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.AddNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.UploadImageUseCase
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.NoteAddingViewModel

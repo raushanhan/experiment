@@ -3,6 +3,8 @@ package ru.kpfu.itis.springpractice.experiment.presentation.ui.recyclerview.note
 import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
 import ru.kpfu.itis.springpractice.experiment.databinding.RvNoteItemBinding
@@ -10,9 +12,10 @@ import kotlin.collections.mutableListOf
 
 class NoteRvAdapter(
     items: List<Note>,
-    val onClickAction: (note: Note) -> Unit,
-    val onMenuItemClick: (note: Note, menuItemId: Int) -> Unit,
-    val menuInflater: MenuInflater
+    private val onClickAction: (noteId: Long) -> Unit,
+    private val onMenuItemClick: (note: Note, menuItemId: Int) -> Unit,
+    private val menuInflater: MenuInflater,
+    private val imageLoadingFun: (path: String, imageView: ImageView) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var dataList = mutableListOf<Note>()
@@ -34,7 +37,8 @@ class NoteRvAdapter(
                 false
             ),
             menuInflater = menuInflater,
-            onMenuItemClick = onMenuItemClick
+            onMenuItemClick = onMenuItemClick,
+            imageLoadingFun = imageLoadingFun
         )
     }
 
@@ -49,9 +53,23 @@ class NoteRvAdapter(
         return dataList.size
     }
 
-    fun submitList(items: List<Note>) {
-        this.dataList = items as MutableList<Note>
-        notifyDataSetChanged() // TODO: Добавить умное обновление листа
+    fun submitList(newList: List<Note>) {
+        val oldList = ArrayList(dataList)
+        dataList.clear()
+        dataList.addAll(newList)
+
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun getOldListSize(): Int = oldList.size
+            override fun getNewListSize(): Int = newList.size
+            override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean {
+                return oldList[oldPos].id == newList[newPos].id
+            }
+            override fun areContentsTheSame(oldPos: Int, newPos: Int): Boolean {
+                return oldList[oldPos] == newList[newPos]
+            }
+        })
+
+        diffResult.dispatchUpdatesTo(this)
     }
 }
 

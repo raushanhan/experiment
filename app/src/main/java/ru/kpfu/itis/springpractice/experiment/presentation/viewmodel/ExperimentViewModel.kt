@@ -1,5 +1,6 @@
 package ru.kpfu.itis.springpractice.experiment.presentation.viewmodel
 
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,11 +10,13 @@ import ru.kpfu.itis.springpractice.experiment.domain.model.Note
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.AuthorizeUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.DeleteNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.LoadAuthorizedUserNotesUseCase
+import ru.kpfu.itis.springpractice.experiment.presentation.util.ImageLoaderInterface
 
 class ExperimentViewModel(
     private val authorizeUseCase: AuthorizeUseCase,
     private val loadAuthorizedUserNotesUseCase: LoadAuthorizedUserNotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val imageLoader: ImageLoaderInterface,
 ) : ViewModel() {
 
     private val _notes = MutableLiveData<List<Note>>()
@@ -70,7 +73,12 @@ class ExperimentViewModel(
                 _deletingError.value = e.message
             } finally {
                 _isDeleting.value = false
+                _isDeletedSuccessfully.value = false
             }
         }
+    }
+
+    fun loadImages(path: String, imageView: ImageView) {
+        imageLoader.loadImageIntoImageView(path, imageView)
     }
 }
