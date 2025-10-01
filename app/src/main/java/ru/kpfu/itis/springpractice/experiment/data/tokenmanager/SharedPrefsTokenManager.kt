@@ -2,7 +2,6 @@ package ru.kpfu.itis.springpractice.experiment.data.tokenmanager
 
 import android.content.Context
 import androidx.core.content.edit
-import ru.kpfu.itis.springpractice.experiment.data.tokenmanager.ITokenManager
 
 class SharedPrefsTokenManager(context: Context): ITokenManager {
     private val prefs = context.getSharedPreferences("jwt_prefs", Context.MODE_PRIVATE)

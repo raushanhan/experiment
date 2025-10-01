@@ -6,8 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.snackbar.Snackbar
+import ru.kpfu.itis.springpractice.experiment.AdventurerApp
 import ru.kpfu.itis.springpractice.experiment.R
+import ru.kpfu.itis.springpractice.experiment.databinding.FragmentProfileBinding
+import ru.kpfu.itis.springpractice.experiment.presentation.extention.hide
+import ru.kpfu.itis.springpractice.experiment.presentation.extention.show
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.ProfileViewModel
+import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.ProfileViewModelFactory
 
 class ProfileFragment : Fragment() {
 
@@ -15,12 +22,17 @@ class ProfileFragment : Fragment() {
         fun newInstance() = ProfileFragment()
     }
 
-    private val viewModel: ProfileViewModel by viewModels()
+    private val viewBinding: FragmentProfileBinding by viewBinding(FragmentProfileBinding::bind)
+
+    private val viewModel: ProfileViewModel by viewModels {
+        val app = requireActivity().application as AdventurerApp
+        ProfileViewModelFactory(
+            app.getUserInfoUseCase
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
     }
 
     override fun onCreateView(
@@ -28,5 +40,32 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(viewBinding) {
+            viewModel.error.observe(viewLifecycleOwner) {
+                Snackbar.make(view, R.string.profile_info_loading_error_text, Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+
+            viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+                if(isLoading) {
+                    profileProgressBar.show()
+                } else {
+                    profileProgressBar.hide()
+                }
+            }
+
+            viewModel.userInfo.observe(viewLifecycleOwner) { user ->
+                user?.let { it ->
+                    usernameTv.text =  it.username
+                    emailTv.text = it.email
+                }
+            }
+
+
+        }
     }
 }

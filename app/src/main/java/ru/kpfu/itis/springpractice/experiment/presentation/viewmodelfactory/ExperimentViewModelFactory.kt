@@ -12,7 +12,6 @@ import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.ExperimentV
  * ВРЕМЕННЫЙ КЛАСС, С hilt БУДЕТ ДРУГАЯ СИСТЕМА
  */
 class ExperimentViewModelFactory(
-    private val authorizeUseCase: AuthorizeUseCase,
     private val loadAuthorizedUserNotesUseCase: LoadAuthorizedUserNotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val imageLoader: ImageLoaderInterface,
@@ -22,7 +21,6 @@ class ExperimentViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ExperimentViewModel::class.java)) {
             return ExperimentViewModel(
-                authorizeUseCase,
                 loadAuthorizedUserNotesUseCase,
                 deleteNoteUseCase,
                 imageLoader

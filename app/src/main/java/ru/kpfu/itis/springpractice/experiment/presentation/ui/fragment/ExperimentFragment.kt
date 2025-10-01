@@ -2,12 +2,10 @@ package ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,16 +21,13 @@ import ru.kpfu.itis.springpractice.experiment.presentation.extention.show
 import ru.kpfu.itis.springpractice.experiment.presentation.ui.recyclerview.notesrv.NoteRvAdapter
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.ExperimentViewModel
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.ExperimentViewModelFactory
-import androidx.navigation.fragment.findNavController
 
 class ExperimentFragment : Fragment() {
 
     private val viewBinding: FragmentExperimentBinding by viewBinding(FragmentExperimentBinding::bind)
     private val viewModel: ExperimentViewModel by viewModels {
-        // временно!!!!!!
         val app = requireActivity().application as AdventurerApp
         ExperimentViewModelFactory(
-            authorizeUseCase = app.authorizeUseCase,
             loadAuthorizedUserNotesUseCase = app.loadAuthorizedUserNotesUseCase,
             deleteNoteUseCase = app.deleteNoteUseCase,
             imageLoader = app.imageLoader
@@ -56,7 +51,7 @@ class ExperimentFragment : Fragment() {
             onClickAction = { noteId ->
                 println("NOTE RV ADAPTER TEST TAG - started executing click action for note(id=$noteId)")
                 val bundle = bundleOf("noteId" to noteId)
-                val navController = requireActivity().findNavController(R.id.fragment_container)
+                val navController = requireActivity().findNavController(R.id.nav_host_fragment_container)
                 navController.navigate(
                     R.id.action_notes_fragment_to_note_details_fragment,
                     bundle

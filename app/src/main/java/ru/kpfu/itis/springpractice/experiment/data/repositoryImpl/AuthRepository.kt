@@ -13,13 +13,16 @@ class AuthRepository(
 
         println("LOG - entered authRepository.login(email=$email,password=$password)")
         val response = api.login(LoginRequest(email, password))
+
         println("LOG - after log in - response: ${response.isSuccessful}, ${response.message()}")
         return if (response.isSuccessful && response.body() != null) {
             tokenManager.saveToken(response.body()!!.token)
+
             println("LOG - saved token ${tokenManager.getToken()}")
             true
         } else {
             false
+            // throw exception
         }
     }
 }

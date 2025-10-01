@@ -27,4 +27,22 @@
     <string name="ru_date_time_format">dd MMMM yyyy, HH:mm</string>
     <string name="update_date_tv_text">Lastly updated at: %1$s</string>
     <string name="creation_date_tv_text">Created at: %1$s</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="login_error_text">Login error</string>
+    <string name="wrong_user_credentials_text">Wrong user credentials, try again</string>
+    <string name="profile_tv">Your profile</string>
+    <string name="log_out_btn_text">Log out</string>
+    <string name="profile_info_loading_error_text">Profile info loading error</string>
+    <string name="action_register">Register</string>
+    <string name="action_get_back_to_login">Get back to log in</string>
+    <string name="action_get_to_account_register">I don\'t have an account</string>
+    <string name="unsuccessful_registration">Unsuccessfull registration</string>
 </resources>
