@@ -14,20 +14,20 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import ru.kpfu.itis.springpractice.experiment.AdventurerApp
 import ru.kpfu.itis.springpractice.experiment.R
-import ru.kpfu.itis.springpractice.experiment.databinding.FragmentExperimentBinding
+import ru.kpfu.itis.springpractice.experiment.databinding.FragmentNotesBinding
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
 import ru.kpfu.itis.springpractice.experiment.presentation.extention.hide
 import ru.kpfu.itis.springpractice.experiment.presentation.extention.show
 import ru.kpfu.itis.springpractice.experiment.presentation.ui.recyclerview.notesrv.NoteRvAdapter
-import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.ExperimentViewModel
-import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.ExperimentViewModelFactory
+import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.NotesViewModel
+import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.NotesViewModelFactory
 
-class ExperimentFragment : Fragment() {
+class NotesFragment : Fragment() {
 
-    private val viewBinding: FragmentExperimentBinding by viewBinding(FragmentExperimentBinding::bind)
-    private val viewModel: ExperimentViewModel by viewModels {
+    private val viewBinding: FragmentNotesBinding by viewBinding(FragmentNotesBinding::bind)
+    private val viewModel: NotesViewModel by viewModels {
         val app = requireActivity().application as AdventurerApp
-        ExperimentViewModelFactory(
+        NotesViewModelFactory(
             loadAuthorizedUserNotesUseCase = app.loadAuthorizedUserNotesUseCase,
             deleteNoteUseCase = app.deleteNoteUseCase,
             imageLoader = app.imageLoader
@@ -39,7 +39,7 @@ class ExperimentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_experiment, container, false)
+        return inflater.inflate(R.layout.fragment_notes, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
