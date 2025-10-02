@@ -11,7 +11,7 @@ import ru.kpfu.itis.springpractice.experiment.domain.usecase.DeleteNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.LoadAuthorizedUserNotesUseCase
 import ru.kpfu.itis.springpractice.experiment.presentation.util.ImageLoaderInterface
 
-class ExperimentViewModel(
+class NotesViewModel(
     private val loadAuthorizedUserNotesUseCase: LoadAuthorizedUserNotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val imageLoader: ImageLoaderInterface,

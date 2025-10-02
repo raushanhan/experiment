@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/notes_fragment"
-        android:name="ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment.ExperimentFragment"
+        android:name="ru.kpfu.itis.springpractice.experiment.presentation.ui.fragment.NotesFragment"
         android:label="fragment_experiment"
-        tools:layout="@layout/fragment_experiment" >
+        tools:layout="@layout/fragment_notes" >
         <action
             android:id="@+id/action_notes_fragment_to_note_adding_fragment"
             app:destination="@id/note_adding_fragment" />
