@@ -65,13 +65,12 @@ class RegisterFragment : Fragment() {
                     val email = email.text.toString()
                     val password = password.text.toString()
                     registerViewModel.authAfterRegister(email, password)
-
-
-                } else {
-                    println("REGISTER FRAGMENT TEST TAG - register unsuccess")
-                    Snackbar.make(view, R.string.unsuccessful_registration, Snackbar.LENGTH_SHORT)
-                        .show()
                 }
+//                else {
+//                    println("REGISTER FRAGMENT TEST TAG - register unsuccess")
+//                    Snackbar.make(view, R.string.unsuccessful_registration, Snackbar.LENGTH_SHORT)
+//                        .show()
+//                }
             }
 
             registerViewModel.loginSuccess.observe(viewLifecycleOwner) { isSuccessful ->
@@ -118,6 +117,14 @@ class RegisterFragment : Fragment() {
                         getString(R.string.invalid_email_error_text)
 
                     CredentialValidity.VALID_CRED -> emailLayout.error = null
+                }
+            }
+
+            registerViewModel.emailIsUsedFlag.observe(viewLifecycleOwner) { isUsed ->
+                if (isUsed) {
+                    emailLayout.error = getString(R.string.email_is_used_error)
+                } else {
+                    emailLayout.error = null
                 }
             }
 

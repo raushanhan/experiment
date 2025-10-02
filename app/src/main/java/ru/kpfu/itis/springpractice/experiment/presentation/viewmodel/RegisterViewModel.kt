@@ -37,11 +37,14 @@ class RegisterViewModel(
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> = _loginSuccess
 
+    private val _emailIsUsedFlag = MutableLiveData<Boolean>()
+    val emailIsUsedFlag: LiveData<Boolean> = _emailIsUsedFlag
+
 
     fun submitRegistration(email: String, username: String, password: String) {
         viewModelScope.launch {
             try {
-                println(authLog(state = "entered", withUsername= username))
+                println(authLog(state = "entered", withUsername = username))
                 _isLoading.value = true
 
                 val emailResult = CredentialsValidation.validateEmail(email)
@@ -55,18 +58,28 @@ class RegisterViewModel(
                 val allValid = listOf(emailResult, usernameResult, passwordResult)
                     .all { it == CredentialValidity.VALID_CRED }
 
-                if (allValid) {
-                    val success = registerUseCase.register(RegisterRequest(
-                        email = email,
-                        username = username,
-                        password = password)
+                var emailUsed: Boolean
+                if (email.isNotEmpty()) {
+                    emailUsed = registerUseCase.checkIfEmailExists(email)
+                    _emailIsUsedFlag.value = emailUsed
+                } else {
+                    emailUsed = false
+                }
+                if (allValid && !emailUsed) {
+                    println("TEST TAG $allValid, ${!emailUsed}")
+                    val success = registerUseCase.register(
+                        RegisterRequest(
+                            email = email,
+                            username = username,
+                            password = password
+                        )
                     )
                     _registerSuccess.value = true
                 } else {
                     _registerSuccess.value = false
                 }
 
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 _error.value = e.message
                 println(authLog(state = "failed", withUsername = username, e = e))
             } finally {

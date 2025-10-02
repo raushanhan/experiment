@@ -51,4 +51,5 @@
     <string name="invalid_email_error_text">Invalid email</string>
     <string name="map_fragment_text">MAP FRAGMENT</string>
     <string name="registration_error_text">Registration error</string>
+    <string name="email_is_used_error">This email is already registered</string>
 </resources>
