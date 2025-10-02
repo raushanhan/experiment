@@ -11,15 +11,17 @@ class AuthRepository(
 ) : AuthRepositoryInterface {
     override suspend fun login(email: String, password: String): Boolean {
 
-        println("LOG - entered authRepository.login(email=$email,password=$password)")
+        println("AUTH REPO TEST TAG - entered authRepository.login(email=$email,password=$password)")
         val response = api.login(LoginRequest(email, password))
-        println("LOG - after log in - response: ${response.isSuccessful}, ${response.message()}")
+
+        println("AUTH REPO TEST TAG - response: ${response.isSuccessful}, ${response.message()}")
         return if (response.isSuccessful && response.body() != null) {
             tokenManager.saveToken(response.body()!!.token)
-            println("LOG - saved token ${tokenManager.getToken()}")
             true
         } else {
+            println("AUTH REPO TEST TAG - failed auth")
             false
+            // throw exception
         }
     }
 }

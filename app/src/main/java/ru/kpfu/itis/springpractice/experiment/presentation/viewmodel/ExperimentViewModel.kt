@@ -7,13 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
-import ru.kpfu.itis.springpractice.experiment.domain.usecase.AuthorizeUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.DeleteNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.LoadAuthorizedUserNotesUseCase
 import ru.kpfu.itis.springpractice.experiment.presentation.util.ImageLoaderInterface
 
 class ExperimentViewModel(
-    private val authorizeUseCase: AuthorizeUseCase,
     private val loadAuthorizedUserNotesUseCase: LoadAuthorizedUserNotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
     private val imageLoader: ImageLoaderInterface,
@@ -41,8 +39,6 @@ class ExperimentViewModel(
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                authorizeUseCase.authorize("email@email.com", "rrr")
-                println("NOTES VIEW MODEL TEST TAG - logged in")
                 val items = loadAuthorizedUserNotesUseCase.loadNotes()
                 println("NOTES VIEW MODEL TEST TAG - $items")
                 _notes.value = items

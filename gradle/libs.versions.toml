@@ -22,6 +22,7 @@ vbDelegateVersion = "1.5.9"
 googleServicesLocation = "21.3.0"
 safeArgsVersion = "2.9.4"
 glideVersion = "5.0.5"
+annotation = "1.9.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +48,7 @@ viewbindingpropertydelegate-noreflection = { module = "com.github.kirich1409:vie
 play-services-location = {module = "com.google.android.gms:play-services-location", version.ref = "googleServicesLocation"}
 androidx-navigation-safeargs-ktx = {module="androidx.navigation:navigation-safe-args-gradle-plugin", version.ref="safeArgsVersion"}
 glide = {module="com.github.bumptech.glide:glide", version.ref="glideVersion"}
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -33,7 +33,7 @@ class NoteAddingFragment : Fragment() {
 
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
 
-    private var imageFile: File? = null;
+    private var imageFile: File? = null
 
     companion object {
         fun newInstance() = NoteAddingFragment()

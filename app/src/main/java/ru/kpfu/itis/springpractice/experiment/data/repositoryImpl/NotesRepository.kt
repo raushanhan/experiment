@@ -6,14 +6,19 @@ import ru.kpfu.itis.springpractice.experiment.domain.exception.UnsuccessfulNoteP
 import ru.kpfu.itis.springpractice.experiment.domain.model.Note
 import ru.kpfu.itis.springpractice.experiment.domain.model.NoteAddRequest
 import ru.kpfu.itis.springpractice.experiment.domain.repositoryInterface.NotesRepositoryInterface
-import kotlin.io.path.Path
+import java.lang.Exception
 
 class NotesRepository(
     private val api: AdventurerAppApi
 ) : NotesRepositoryInterface {
 
     override suspend fun getNotes(): List<Note> {
-        return api.getNotesList()
+        val response = api.getNotesList()
+        if (response.isSuccessful) {
+            return response.body() as List<Note>
+        } else {
+            throw Exception() // todo
+        }
     }
 
     override suspend fun getNote(id: Long): Note {
@@ -26,7 +31,12 @@ class NotesRepository(
     }
 
     override suspend fun deleteNote(id: Long): Boolean {
-        return api.deleteNote(id)
+        val response = api.deleteNote(id)
+        if (response.isSuccessful) {
+            return true;
+        }
+        return false;
+        // throw unsuccessful deletion exception
     }
 
     override suspend fun addNote(note: NoteAddRequest): Note {

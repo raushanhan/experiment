@@ -19,6 +19,7 @@ class ImagesRepository(
 //            Log.d("API", "Upload success")
         } else {
             println("IMAGES REPOSITORY TEST TAG - failed to upload file ${file.name}, ${response.code()}")
+            // throw image uploading error
 //            Log.e("API", "Upload failed: ${response.code()}")
         }
     }
