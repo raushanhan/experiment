@@ -15,9 +15,8 @@ import ru.kpfu.itis.springpractice.experiment.databinding.FragmentRegisterBindin
 import ru.kpfu.itis.springpractice.experiment.presentation.extention.hide
 import ru.kpfu.itis.springpractice.experiment.presentation.extention.show
 import ru.kpfu.itis.springpractice.experiment.presentation.ui.MainActivity
-import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.LoginViewModel
+import ru.kpfu.itis.springpractice.experiment.presentation.util.CredentialValidity
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.RegisterViewModel
-import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.LoginViewModelFactory
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.RegisterViewModelFactory
 
 class RegisterFragment : Fragment() {
@@ -27,7 +26,8 @@ class RegisterFragment : Fragment() {
     private val registerViewModel: RegisterViewModel by viewModels {
         val app = requireActivity().application as AdventurerApp
         RegisterViewModelFactory(
-            registerUseCase = app.registerUseCase
+            registerUseCase = app.registerUseCase,
+            authorizeUseCase = app.authorizeUseCase
         )
     }
 
@@ -54,45 +54,84 @@ class RegisterFragment : Fragment() {
             }
 
             registerViewModel.error.observe(viewLifecycleOwner) {
-                Snackbar.make(view, R.string.login_error_text, Snackbar.LENGTH_SHORT)
+                Snackbar.make(view, R.string.registration_error_text, Snackbar.LENGTH_SHORT)
                     .show()
             }
 
             registerViewModel.registerSuccess.observe(viewLifecycleOwner) { isSuccessful ->
                 if (isSuccessful) {
-                    // авторизация после регистрации происходит в вью модели
-                    (requireActivity() as MainActivity).setToMainNavGraph()
+                    println("REGISTER FRAGMENT TEST TAG - successful register, now log in")
+
+                    val email = email.text.toString()
+                    val password = password.text.toString()
+                    registerViewModel.authAfterRegister(email, password)
+
+
                 } else {
+                    println("REGISTER FRAGMENT TEST TAG - register unsuccess")
                     Snackbar.make(view, R.string.unsuccessful_registration, Snackbar.LENGTH_SHORT)
                         .show()
                 }
             }
 
-            registerViewModel.passwordValidation.observe(viewLifecycleOwner) { isValid ->
-                if (!isValid) {
-                    passwordLayout.error = "Введите пароль"
+            registerViewModel.loginSuccess.observe(viewLifecycleOwner) { isSuccessful ->
+                if (isSuccessful) {
+                    println("REGISTER FRAGMENT TEST TAG - successful login, now set to logged in state")
+                    (requireActivity() as MainActivity).setToLoggedInState()
                 } else {
-                    passwordLayout.error = null
+                    println("REGISTER FRAGMENT TEST TAG - login unsuccess")
+                    Snackbar.make(view, R.string.login_failed, Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
 
-            registerViewModel.usernameValidation.observe(viewLifecycleOwner) { isValid ->
-                if (!isValid) {
-                    usernameLayout.error = "Введите email"
-                } else {
-                    usernameLayout.error = null
+            registerViewModel.passwordValidation.observe(viewLifecycleOwner) { validity ->
+                when (validity) {
+                    CredentialValidity.EMPTY_CRED -> passwordLayout.error =
+                        getString(R.string.empty_password_error_text)
+
+                    CredentialValidity.INVALID_CRED -> passwordLayout.error =
+                        getString(R.string.invalid_password_error_text)
+
+                    CredentialValidity.VALID_CRED -> passwordLayout.error = null
                 }
             }
+
+            registerViewModel.usernameValidation.observe(viewLifecycleOwner) { validity ->
+                when (validity) {
+                    CredentialValidity.EMPTY_CRED -> usernameLayout.error =
+                        getString(R.string.empty_username_error_text)
+
+                    CredentialValidity.INVALID_CRED -> usernameLayout.error =
+                        getString(R.string.invalid_username_error_text)
+
+                    CredentialValidity.VALID_CRED -> usernameLayout.error = null
+                }
+            }
+
+            registerViewModel.emailValidation.observe(viewLifecycleOwner) { validity ->
+                when (validity) {
+                    CredentialValidity.EMPTY_CRED -> emailLayout.error =
+                        getString(R.string.empty_email_error_text)
+
+                    CredentialValidity.INVALID_CRED -> emailLayout.error =
+                        getString(R.string.invalid_email_error_text)
+
+                    CredentialValidity.VALID_CRED -> emailLayout.error = null
+                }
+            }
+
 
             submitRegistrationBtn.setOnClickListener {
-                registerViewModel.submitAuthorization(
-                    .text.toString(),
-                    password.text.toString()
+                registerViewModel.submitRegistration(
+                    email = email.text.toString(),
+                    username = username.text.toString(),
+                    password = password.text.toString()
                 )
             }
 
-            registerBtn.setOnClickListener {
-                findNavController().navigate(R.id.register_fragment)
+            getBackToLogInBtn.setOnClickListener {
+                findNavController().navigate(R.id.login_fragment)
             }
         }
     }

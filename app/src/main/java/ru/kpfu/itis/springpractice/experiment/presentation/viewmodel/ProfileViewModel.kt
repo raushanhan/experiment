@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.kpfu.itis.springpractice.experiment.domain.model.User
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.GetUserInfoUseCase
+import ru.kpfu.itis.springpractice.experiment.domain.usecase.LogOutUseCase
 import java.lang.Exception
 
 class ProfileViewModel(
-    private val getUserInfoUseCase: GetUserInfoUseCase
+    private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val logOutUseCase: LogOutUseCase
 ) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -35,5 +37,7 @@ class ProfileViewModel(
         }
     }
 
-
+    fun logOut() {
+        logOutUseCase.logOut()
+    }
 }

@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.kpfu.itis.springpractice.experiment.AdventurerApp
 import ru.kpfu.itis.springpractice.experiment.R
+import ru.kpfu.itis.springpractice.experiment.presentation.extention.hide
 import ru.kpfu.itis.springpractice.experiment.presentation.extention.show
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.AuthCheckViewModel
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.AuthCheckViewModelFactory
@@ -21,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: AuthCheckViewModel by viewModels {
         val app = application as AdventurerApp
         AuthCheckViewModelFactory(
-            app.authorization,
             app.checkAuthorizationUseCase
         )
     }
@@ -49,10 +49,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.checkAuthorization()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     fun setToMainNavGraph() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(navHostFragment) as NavHostFragment
@@ -62,6 +58,25 @@ class MainActivity : AppCompatActivity() {
         )
         navController.graph = graph
         setBottomNav(navController)
+    }
+
+    fun setToLoginNavGraph() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val graph = navController.navInflater.inflate(
+            R.navigation.login_nav_graph
+        )
+        navController.graph = graph
+        hideBottomNav()
+    }
+
+    fun setToLoggedInState() {
+        setToMainNavGraph()
+    }
+
+    fun setToLoggedOutState() {
+        setToLoginNavGraph()
     }
 
     private fun setBottomNav(navController: NavController) {
@@ -77,5 +92,10 @@ class MainActivity : AppCompatActivity() {
             true
         }
         bottomNav.show()
+    }
+
+    private fun hideBottomNav() {
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.hide()
     }
 }

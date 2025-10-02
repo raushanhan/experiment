@@ -3,14 +3,12 @@
     <string name="map_fragment_title">Map</string>
     <string name="notes_fragment_title">All notes</string>
     <string name="profile_fragment_title">Profile</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_picture_iv_cd">Note picture</string>
     <string name="notes_list_loading_error_text">Error</string>
-    <string name="note_more_iv_cd">Note more</string>
     <string name="delete_title">Delete</string>
     <string name="deleting_error_text">Deleting error</string>
     <string name="deleting">Deleting</string>
-    <string name="deleting_success">Deletion complited</string>
+    <string name="deleting_success">Deletion completed</string>
     <string name="plus">+</string>
     <string name="add_a_note_button_cd">Add a note button</string>
     <string name="add_a_photo_btn_text">Add a photo</string>
@@ -32,7 +30,6 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -44,5 +41,14 @@
     <string name="action_register">Register</string>
     <string name="action_get_back_to_login">Get back to log in</string>
     <string name="action_get_to_account_register">I don\'t have an account</string>
-    <string name="unsuccessful_registration">Unsuccessfull registration</string>
+    <string name="unsuccessful_registration">Unsuccessful registration</string>
+    <string name="prompt_displayName">Username</string>
+    <string name="empty_password_error_text">Enter password</string>
+    <string name="invalid_password_error_text">Password must be longer than 6 symbols</string>
+    <string name="empty_username_error_text">Enter the username</string>
+    <string name="invalid_username_error_text">Invalid username</string>
+    <string name="empty_email_error_text">Enter the email</string>
+    <string name="invalid_email_error_text">Invalid email</string>
+    <string name="map_fragment_text">MAP FRAGMENT</string>
+    <string name="registration_error_text">Registration error</string>
 </resources>

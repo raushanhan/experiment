@@ -14,15 +14,17 @@ class UserRepository(
         val response = api.getUserInfo()
 
         if (response.code() == 403) {
-            AuthorizationException("Not authorized")
+            println("USER REPOSITORY TEST TAG - unauthorized")
+            throw AuthorizationException("Not authorized")
         }
 
         if (response.isSuccessful && response.body() != null) {
-            return response.body()!!
+            val user  = response.body()!!
+            println("USER REPOSITORY TEST TAG - received user $user")
+            return user
         } else {
+            println("USER REPOSITORY TEST TAG - failed receiving user ${response.code()}")
             throw Exception()
         }
     }
-
-
 }

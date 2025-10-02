@@ -13,6 +13,7 @@ import ru.kpfu.itis.springpractice.experiment.R
 import ru.kpfu.itis.springpractice.experiment.databinding.FragmentProfileBinding
 import ru.kpfu.itis.springpractice.experiment.presentation.extention.hide
 import ru.kpfu.itis.springpractice.experiment.presentation.extention.show
+import ru.kpfu.itis.springpractice.experiment.presentation.ui.MainActivity
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodel.ProfileViewModel
 import ru.kpfu.itis.springpractice.experiment.presentation.viewmodelfactory.ProfileViewModelFactory
 
@@ -27,7 +28,8 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModels {
         val app = requireActivity().application as AdventurerApp
         ProfileViewModelFactory(
-            app.getUserInfoUseCase
+            logOutUseCase = app.logOutUseCase,
+            getUserInfoUseCase = app.getUserInfoUseCase
         )
     }
 
@@ -65,7 +67,12 @@ class ProfileFragment : Fragment() {
                 }
             }
 
+            viewModel.getUserInfo()
 
+            logOutBtn.setOnClickListener {
+                viewModel.logOut()
+                (requireActivity() as MainActivity).setToLoggedOutState()
+            }
         }
     }
 }

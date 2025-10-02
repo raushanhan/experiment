@@ -11,6 +11,7 @@ class RegisterRepository(
 ) : RegisterRepositoryInterface {
 
     override suspend fun register(registerForm: RegisterRequest): RegisterResponse {
+        println("REGISTER REPOSITORY TEST TAG - entered register repo")
         val response = api.register(registerForm)
 
         if (response.isSuccessful && response.body() != null) {

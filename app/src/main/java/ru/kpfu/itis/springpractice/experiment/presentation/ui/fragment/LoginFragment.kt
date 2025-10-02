@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
 
             viewModel.authSuccess.observe(viewLifecycleOwner) { isSuccessful ->
                 if (isSuccessful) {
-                    (requireActivity() as MainActivity).setToMainNavGraph()
+                    (requireActivity() as MainActivity).setToLoggedInState()
                 } else {
                     Snackbar.make(view, R.string.wrong_user_credentials_text, Snackbar.LENGTH_SHORT)
                         .show()
@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
 
             viewModel.passwordValidation.observe(viewLifecycleOwner) { isValid ->
                 if (!isValid) {
-                    passwordLayout.error = "Введите пароль"
+                    passwordLayout.error = getString(R.string.empty_password_error_text)
                 } else {
                     passwordLayout.error = null
                 }
@@ -81,7 +81,7 @@ class LoginFragment : Fragment() {
 
             viewModel.usernameValidation.observe(viewLifecycleOwner) { isValid ->
                 if (!isValid) {
-                    usernameLayout.error = "Введите email"
+                    usernameLayout.error = getString(R.string.empty_email_error_text)
                 } else {
                     usernameLayout.error = null
                 }

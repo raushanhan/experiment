@@ -24,12 +24,13 @@ import ru.kpfu.itis.springpractice.experiment.domain.usecase.CheckAuthorizationU
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.DeleteNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.GetUserInfoUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.LoadAuthorizedUserNotesUseCase
+import ru.kpfu.itis.springpractice.experiment.domain.usecase.LogOutUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.PullNoteUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.RegisterUseCase
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.UploadImageUseCase
 import ru.kpfu.itis.springpractice.experiment.presentation.util.ImageLoaderInterface
 
-class AdventurerApp: Application() {
+class AdventurerApp : Application() {
     lateinit var tokenManager: ITokenManager
     lateinit var retrofit: Retrofit
     lateinit var adventurerAppApi: AdventurerAppApi
@@ -49,6 +50,7 @@ class AdventurerApp: Application() {
     lateinit var checkAuthorizationUseCase: CheckAuthorizationUseCase
     lateinit var userRepository: UserRepositoryInterface
     lateinit var getUserInfoUseCase: GetUserInfoUseCase
+    lateinit var logOutUseCase: LogOutUseCase
 
 
     override fun onCreate() {
@@ -73,5 +75,9 @@ class AdventurerApp: Application() {
         userRepository = UserRepository(adventurerAppApi)
         checkAuthorizationUseCase = CheckAuthorizationUseCase(userRepository)
         getUserInfoUseCase = GetUserInfoUseCase(userRepository)
+        logOutUseCase = LogOutUseCase(
+            authorization = authorization,
+            tokenManager = tokenManager
+        )
     }
 }

@@ -34,8 +34,11 @@ class RegisterViewModel(
     private val _registerSuccess = MutableLiveData<Boolean>()
     val registerSuccess: LiveData<Boolean> = _registerSuccess
 
+    private val _loginSuccess = MutableLiveData<Boolean>()
+    val loginSuccess: LiveData<Boolean> = _loginSuccess
 
-    fun submitAuthorization(email: String, username: String, password: String) {
+
+    fun submitRegistration(email: String, username: String, password: String) {
         viewModelScope.launch {
             try {
                 println(authLog(state = "entered", withUsername= username))
@@ -58,7 +61,6 @@ class RegisterViewModel(
                         username = username,
                         password = password)
                     )
-                    authorizeUseCase.authorize(email, password)
                     _registerSuccess.value = true
                 } else {
                     _registerSuccess.value = false
@@ -74,10 +76,21 @@ class RegisterViewModel(
         }
     }
 
+    fun authAfterRegister(email: String, password: String) {
+        viewModelScope.launch {
+            try {
+                _loginSuccess.value = authorizeUseCase.authorize(email, password)
+            } catch (e: Exception) {
+                _loginSuccess.value = false
+                println("REGISTER VIEW MODEL TEST TAG - auth after register exception: $e")
+            }
+        }
+    }
+
     private fun authLog(state: String, withUsername: String, e: Exception? = null): String {
-        val res = "REGISTER VIEW MODEL TEST TAG - $state register with username: $withUsername"
+        var res = "REGISTER VIEW MODEL TEST TAG - $state register with username: $withUsername"
         if (e != null) {
-            res.plus(" e: $e")
+            res += " error: $e"
         }
         return res
     }

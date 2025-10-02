@@ -10,6 +10,8 @@
         android:id="@+id/note_creation_date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,6 +22,7 @@
         android:id="@+id/note_last_update_date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/note_creation_date_tv"
@@ -31,6 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/note_image_iv_content_desc"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/note_last_update_date_tv"
         tools:src="@drawable/icon_notes_fragment"
         />
@@ -40,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="40sp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/note_image_iv"
         tools:text="Note title"
         />
@@ -49,6 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/note_title_tv"
         tools:text="Note content"
         />
@@ -61,6 +69,7 @@
         android:src="@drawable/icon_baseline_edit_pencil_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         />
 
     <ProgressBar

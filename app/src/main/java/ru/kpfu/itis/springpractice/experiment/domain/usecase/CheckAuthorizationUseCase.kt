@@ -8,8 +8,10 @@ class CheckAuthorizationUseCase(private val userRepository: UserRepositoryInterf
     suspend fun checkAuth(): Boolean {
         return try {
             userRepository.getUser()
+            println("CHECK AUTH USE CASE - authorized")
             true
         } catch (e: AuthorizationException) {
+            println("CHECK AUTH USE CASE - not authorized")
             false
         }
     }

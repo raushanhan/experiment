@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import ru.kpfu.itis.springpractice.experiment.domain.usecase.CheckAuthorizationUseCase
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.kpfu.itis.springpractice.experiment.domain.model.Authorization
 
 class AuthCheckViewModel(
-    private val authorization: Authorization,
     private val checkAuthorizationUseCase: CheckAuthorizationUseCase
 ) : ViewModel() {
 
@@ -19,11 +17,6 @@ class AuthCheckViewModel(
     fun checkAuthorization() {
         viewModelScope.launch {
             println(authLog("start"))
-            if (!authorization.isAuthorized) {
-                println(authLog("check Authorization.isAuthorized"))
-                _isAuthorized.postValue(false)
-                return@launch
-            }
 
             val result = try {
                 val res = checkAuthorizationUseCase.checkAuth()
